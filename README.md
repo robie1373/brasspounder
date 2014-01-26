@@ -23,6 +23,10 @@ Or install it yourself as:
     -t, --tone TONE                  tone in Hz [600]
     -v, --[no-]verbose               echo characters to screen while sending? On by default.
 
+    Can take text from a pipe
+    
+    $ cat favorite_book.txt | brasspounder [args]
+
 ## Contributing
 
 1. Fork it ( http://github.com/<my-github-username>/brasspounder/fork )
