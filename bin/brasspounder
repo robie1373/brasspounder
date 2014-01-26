@@ -2,14 +2,14 @@
 
 require_relative '../lib/brasspounder'
 require "optparse"
-require 'Timeout'
+require 'timeout'
 
 args = {speed: :norm, tone: 600, verbose: true}
 
 option_parser = OptionParser.new do |opts|
   opts.banner = "Usage: brasspounder [args] FILENAME"
 
-  opts.on('-s', '--speed SPEED', [:slow, :norm, :fast], 'speed of code. Must be one of:slow, [norm], fast') do |speed|
+  opts.on('-s', '--speed SPEED', [:slow, :norm, :fast], 'speed of code. Must be one of: slow, [norm], fast') do |speed|
     speed = speed.to_sym
     unless [:slow, :norm, :fast].include? speed
       raise ArgumentError, "speed must be either slow, norm or fast"

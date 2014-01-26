@@ -1,6 +1,6 @@
 # Brasspounder
 
-TODO: Write a gem description
+Brasspounder is a program for sending CW (aka morse code) through the default sound device of your computer. At present it only works on OS X. If people want it, a Windows version is possible.
 
 ## Installation
 
@@ -18,7 +18,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    Usage: brasspounder [args] FILENAME
+    -s, --speed SPEED                speed of code. Must be one of:slow, [norm], fast
+    -t, --tone TONE                  tone in Hz [600]
+    -v, --[no-]verbose               echo characters to screen while sending? On by default.
 
 ## Contributing
 
