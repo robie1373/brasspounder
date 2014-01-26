@@ -1,3 +1,60 @@
 #!/usr/bin/env ruby
 
-require 'brasspounder'
+require_relative '../lib/brasspounder'
+require "optparse"
+require 'Timeout'
+
+args = {speed: :norm, tone: 600, verbose: true}
+
+option_parser = OptionParser.new do |opts|
+  opts.banner = "Usage: brasspounder [args] FILENAME"
+
+  opts.on('-s', '--speed SPEED', [:slow, :norm, :fast], 'speed of code. Must be one of:slow, [norm], fast') do |speed|
+    speed = speed.to_sym
+    unless [:slow, :norm, :fast].include? speed
+      raise ArgumentError, "speed must be either slow, norm or fast"
+    end
+    args[:speed] = speed
+  end
+
+  opts.on('-t', '--tone TONE', 'tone in Hz [600]', Integer) do |tone|
+    unless tone > 1 && tone.integer?
+      raise ArgumentError, "tone must be a positive number. 600 is a good default"
+    end
+    args[:tone] = tone
+  end
+
+  opts.on('-v', '--[no-]verbose', "echo characters to screen while sending? On by default.") do |v|
+    args[:verbose]= v
+  end
+end
+
+option_parser.parse!
+
+lines = ""
+
+begin
+  timeout(2) do
+    input = ARGF.readlines.each { |line| lines += " #{line.chomp.downcase}" }
+  end
+rescue Timeout::Error => ex
+  puts "No input in 2 seconds. You must supply a filename at the command line or pipe in data"
+  puts "\nCtrl-c to kill\n\n"
+  input = "To copy some text supply a file path or unix pipeline"
+  # return nil
+end
+
+sample_text = "To copy some text supply a file path or unix pipeline"
+
+brasspounder = Brasspounder::Runner.new
+
+begin
+  if lines.length > 0
+    puts "\nCtrl-c to kill.\n\n"
+    brasspounder.run(lines, args[:speed], args[:tone], args[:verbose])
+  else
+    brasspounder.run(sample_text, args[:speed], args[:tone], args[:verbose])
+  end
+rescue Interrupt => e
+  puts "\n\nGood bye"
+end

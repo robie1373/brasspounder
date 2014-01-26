@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Brasspounder::VERSION
   spec.authors       = ["Robie Lutsey"]
   spec.email         = ["robie1373@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Converts text to CW (morse code)}
+  spec.description   = %q{Feed brasspounder (ham radio slang for CW operator) some text and it will send the text in CW. Optionally will print the text to STDOUT.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -19,6 +19,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.5"
-  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rake", "~> 10.1.1"
   spec.add_development_dependency "rspec"
+
+  spec.add_dependency "gentone", "~> 0.0"
 end
